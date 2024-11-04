@@ -2,7 +2,7 @@
 
 ## Members: Ethan Machleder, Keith Yeung, Jason Zhu
 
-There are many different factors that affect the price of a car, such as the brand, mileage, manufactoring year, and features of the car. For our project, we want to be able to successfully predict the price of cars based on these variables, focusing on used cars from BMW.
+There are many different factors that affect the price of a car, such as the brand, mileage, manufactoring year, and features of the car. For our project, we want to be able to successfully predict the price of cars based on these variables.
 
 The data that needs to be collected is information on car sales and as many features of the cars as possible. We may be able to find this data through past car auctions, most likely from Kaggle datasets.
 
