@@ -1,6 +1,58 @@
-# CS506-Project
+# CS506 - Final Project
 
 Members: Ethan Machleder, Keith Yeung, Jason Zhu
+
+## Description
+
+This project aimed to predict the price of a resell car based on a dataset that includes various car features such as make, model, year, condition, odometer reading, and other categorical and numerical attributes. This analysis focuses on feature selection and model tuning of advanced regression techniques, including linear regression, Ridge regression, Lasso regression, Random Forest, and XGBoost models, to determine the most accurate method for price prediction.
+
+## Background
+
+Predicting car prices is a critical task for car dealerships, buyers, and sellers. Accurate predictions can help in pricing cars competitively, understanding market trends, and identifying factors that significantly influence prices. The dataset includes historical sales data, vehicle features, and sales dates. This task involves cleaning and preprocessing the data, exploring feature importance, and evaluating regression models to achieve reliable predictions.
+
+## Motivation and Goals
+
+We want to build a robust model to predict car selling prices. We also wanted to compare the performance of multiple regression models and hope that it provides actionable insights based on the analysis. This is informative for car dealerships and personal sellers, as well as potential buyers to estimate the cost of a car. This would allow people to accurately predict the cost of a car and get the most out of their money.
+
+## Data Preprocessing
+
+Our dataset was obtained from Kaggle. It consisted of 16 variables and 558,838 rows of data. The dataset included the following columns: categorical features such as make, model, trim, body, transmission, state, color, and interior; numerical features such as year, condition, and odometer; temporal features such as saledate; and our target variable, selling price. Other columns such as vin and seller were immediately not useful to our project. The vin is unique to every car and has no relevance to predicting the selling price. The seller could be useful but there were simply too many unique sellers outside of the official brands of carmakers. Furthermore, the make was already a variable. 
+
+The first step in our data preprocessing was focused on identifying and handling missing values to ensure that our data could be used fully. Initially, we examined each column to quantify the number and percentage of missing values, giving us a clear overview of data completeness. Based on this assessment, we identified essential columns such as make, model, trim, body, transmission, and condition that were missing over 10,000 rows. After further investigation, we found that most of the data values that were missing one variable, were also missing the other variables. Thus, to retain data quality, we chose to drop all the rows where these key features were missing. After this cleaning step, there were still 472,338 rows of data remaining. 
+
+Our next step was to further investigate each of our variables. We calculated the frequency of unique values in each of our categorical variables like make, model, trim, body, color, and interior and plotted each one. We found that there were 40 different makes in our dataset; the largest five being Ford, Chevrolet, Nissan, Toyota, and Dodge. This makes sense, as these are the most popular and affordable car brands. There were very few cars from super luxury brands like Maserati, Bentley, Aston Martin, Ferrari, Rolls-Royce, and Lamborghini. There were simply way too many unique models and trims as each brand had many models and each model had different trims. For car bodies, we simplified the different car bodies into more general groups. For example, ‘Cab’, ‘Crew cab’, ‘Extended Cab’, ‘Regular Cab’, and ‘Quad Cab’ were grouped together as ‘Cab’. This reduced the number of unique car bodies so it was more manageable to work with. As for color and interior color of the car, both had very skewed frequencies, with the majority being common colors such as black or white, but there were a few rare colors such as pink, turquoise, etc. We decided that such a low sample (< 0.2% of entire dataset) for each other would not be helpful and accurate in predicting price anyway so we grouped them together as ‘Other’. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Proposal:
 
