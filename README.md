@@ -4,7 +4,7 @@ Members: Ethan Machleder, Keith Yeung, Jason Zhu
 
 ## Description
 
-This project aimed to predict the price of a used/resold car based on a dataset that includes various car features such as make, model, year, condition, odometer reading, and other categorical and numerical attributes. This analysis focuses on feature selection and model tuning of advanced regression techniques, including Linear Regression, Ridge Regression, Lasso Regression, Random Forest, and XGBoost models, to determine the most accurate method for price prediction.
+This project aimed to predict the price of a used/resold car based on a dataset that includes various car features such as make, model, year, condition, odometer reading, and other categorical and numerical attributes. This analysis focuses on feature selection and model tuning of advanced regression techniques, including Linear Regression, Ridge Regression, and Lasso Regression to determine the most accurate method for price prediction.
 
 ## Background
 
