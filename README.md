@@ -91,6 +91,13 @@ Figure 11. Scatterplot showing Actual Selling Price vs Predicted Selling Price
 
 ## Conclusion
 
+In this project, we set out to predict the selling prices of used cars based on various car features using advanced regression techniques. Through a detailed process of data preprocessing, feature engineering, and model tuning, we built and evaluated several models, including Linear Regression, Ridge Regression, and Lasso Regression. Our goal was to identify the most accurate model and provide actionable insights for car dealerships, buyers, and sellers. After extensive data cleaning and feature selection, we trained and evaluated multiple regression models. Our models demonstrated strong performance, with the Ridge Regression model yielding the best results, achieving an R^2 of 0.8512, an RMSE of 3,709.3, and an MAE of 2,365.5. The Linear Regression model also performed well, with an R^2 of 0.8491, but the Ridge model slightly outperformed it, suggesting that regularization helped improve model accuracy by addressing multicollinearity. 
+
+Ultimately, this analysis provides valuable insights into the factors influencing car prices and highlights the effectiveness of regression models in predicting these prices. The results of this study can assist car dealerships in pricing vehicles more competitively, help buyers make informed decisions, and support sellers in maximizing their returns. Moving forward, the integration of more advanced models such as Random Forest and XGBoost could further enhance predictive accuracy, especially in capturing nonlinear relationships in the data.
+
+## Resources
+
+https://www.kaggle.com/datasets/tunguz/used-car-auction-prices
 
 
 
