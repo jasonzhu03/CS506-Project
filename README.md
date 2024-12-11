@@ -19,24 +19,46 @@ We wanted to build a robust model to predict car selling prices. We also wanted 
 Our dataset was obtained from Kaggle and consisted of data mostly collected in 2015 and included 16 variables and 558,838 rows of data. The dataset included the following columns: categorical features such as make, model, trim, body, transmission, state, color, seller, and interior; numerical features such as year, condition, vin, and odometer; temporal features such as saledate; and our target variable, selling price. Some columns such as vin and transmission were immediately not useful to our project. The vin is unique to every car and has no relevance to predicting the selling price. Using the vin to search up the vehicles sales history was also very inconsistent and was ruled out. The transmission variable was 97% automatics, and was determined to not be useful.
 
 ![dataset info](https://github.com/user-attachments/assets/99b6e25b-2c84-4c27-b6cb-6eeb4d20d110)
+Figure 1. Dataset Information including Columns and Rows
 
 The first step in our data preprocessing was focused on identifying and handling missing values to ensure that our data could be used fully. Initially, we examined each column to quantify the number and percentage of missing values, giving us a clear overview of data completeness. Based on this assessment, we identified essential columns such as make, model, trim, body, transmission, and condition that were missing over 10,000 rows. After further investigation, we found that most of the data values that were missing one variable, were also missing the other variables. Thus, to retain data quality, we chose to drop all the rows where these key features were missing. After this cleaning step, there were still 472,338 rows of data remaining. 
 
 ![missing values](https://github.com/user-attachments/assets/d3b80fd5-1e43-4b4d-a71f-c553967ed628)
+Figure 2. Missing Values from the Dataset
+
+![after cleaning dataset info](https://github.com/user-attachments/assets/0f60d746-9868-4a35-a9c6-ee67ec6fa6dc)
+Figure 3. Dataset Information after Cleaning
 
 Our next step was to further investigate each of our variables. We calculated the frequency of unique values in each of our categorical variables like make, model, trim, body, color, and interior and plotted each one. We found that there were 40 different makes in our dataset; the largest five being Ford, Chevrolet, Nissan, Toyota, and Dodge. This makes sense, as these are the most popular and affordable car brands. There were very few cars from super luxury brands like Maserati, Bentley, Aston Martin, Ferrari, Rolls-Royce, and Lamborghini. There were simply way too many unique models and trims as each brand had many models and each model had different trims. For car bodies, we simplified the different car bodies into more general groups. For example, ‘Cab’, ‘Crew cab’, ‘Extended Cab’, ‘Regular Cab’, and ‘Quad Cab’ were grouped together as ‘Cab’. This reduced the number of unique car bodies so it was more manageable to work with. As for color and interior color of the car, both had very skewed frequencies, with the majority being common colors such as black or white, but there were a few rare colors such as pink, turquoise, etc. We decided that such a low sample (< 0.2% of entire dataset) for each other would not be helpful and accurate in predicting price anyway so we grouped them together as ‘Other’ with new variables interior_replaced and color_replaced.
 
 ![bar chart of body](https://github.com/user-attachments/assets/35b1ff2d-c02c-4e21-bcb0-ca563d4cc9da)
+Figure 4. Bar Chart showing Frequency of Car Bodies before Grouping
 
 We extended our analysis by investigating the temporal aspect of the dataset using the saledate column. After converting it to a standardized datetime format, we identified and logged any invalid dates, ensuring the data's integrity for further analysis. To gain deeper insights, we first tried extracting new temporal features: sale_hour, sale_day, sale_month, sale_year, and sale_day_of_week. We thought these features would be helpful in detecting meaningful correlations and trends, but we later found that there were basically no correlations between the saledate and the price of the car. We believe this is because only the vehicle_age, the number of years since manufacture, was a useful factor. Numeric features like odometer and year displayed trends such as a preference for newer, low-mileage vehicles at affordable price ranges, with selling prices exhibiting a right-skewed distribution. These insights highlight key trends and relationships in the data, informing feature selection for predictive modeling and data preprocessing strategies.
 
 ![bar chart of make](https://github.com/user-attachments/assets/fef42be4-ce0c-4683-9ccd-d89bbd7cb102)
+Figure 5. Bar Chart of Make showing Frequency of Car Brands
+
+![distribution of year](https://github.com/user-attachments/assets/56e6dead-ca7e-447d-b197-e51a30c087d0)
+Figure 6. Histogram of Year showing Distribution of Manufacture Years
 
 We enhanced our analysis by examining relationships between variables and our target variable, sellingprice using scatterplot matrices, heatmaps, and box plots. A scatterplot matrix of numeric features provided a visual exploration of pairwise relationships, helping us identify potential linear or nonlinear patterns that could impact the selling price. The correlation heatmap highlighted the strength and direction of relationships among numeric variables, revealing key predictors of sellingprice and identifying multicollinearity issues that may require attention during modeling. Additionally, box plots of sellingprice against categorical features like make and grouped_body allowed us to visualize how different categories influence price distribution, such as luxury brands consistently exhibiting higher price ranges. These visualizations provide critical insights for feature selection, model tuning, and understanding how various factors contribute to pricing trends in the dataset.
+
+![box plot of color vs price](https://github.com/user-attachments/assets/20cb66a1-431e-4bed-9515-2887329b4bb2)
+Figure 7. Box Plot of Color vs Selling Price
+
+![scatterplot to selling price](https://github.com/user-attachments/assets/e5297e38-bb23-4070-a2cf-4a2a67138600)
+Figure 8. Scatterplot Matrix to show correlation between features
+
+![heatmap to selling price](https://github.com/user-attachments/assets/d4d6d8ba-ab15-4574-84d3-31b5e3756813)
+Figure 9. Correlation Heatmap to show correlation between features
 
 ## Feature Engineering
 
 To enhance feature engineering, we introduced several data transformations and groupings. As stated, a new grouped_body feature was created by mapping the body column into broader categories such as Sedan, SUV, and Cab, which simplifies the variety of car body types and makes them more interpretable. We also calculated a vehicle_age feature based on the difference between the sale year and the car’s manufacturing year, which provides a clearer indicator of depreciation trends. Rare colors like charcoal, turquoise, and pink were grouped as Other in the color column, along with less common interior colors such as gold and purple, to address sparsity in these categories. These additions improve data consistency and provide valuable predictors, aiding in better trend analysis and model performance and reduce chances of overfitting.
+
+![post feature adding](https://github.com/user-attachments/assets/712ec7ee-b251-4913-98f2-9e169eb283a3)
+Figure 10. Categorical Features after grouping and simplification
 
 To prepare the data for predictive modeling, columns such as vin, saledate, mmr, transmission, and body were excluded as they were either unique identifiers or redundant for prediction. The target variable, sellingprice, was separated, and the data was split into training and testing sets with a 70-30 ratio. Selected categorical features included make, model, trim, grouped_body, state, color, interior, and seller, while numerical features consisted of year, condition, odometer, and vehicle_age. Data preprocessing was handled using a ColumnTransformer, where numeric features were standardized with a StandardScaler and categorical features were encoded with a OneHotEncoder. To evaluate model performance, a visualization function was created to plot actual vs. predicted prices, showing predictions against true values with a diagonal line indicating perfect prediction. This process aids in assessing the model’s accuracy and identifying areas for refinement.
 
@@ -49,6 +71,13 @@ A linear regression model pipeline was created to predict car prices using the p
 We chose to measure the effectiveness of our models using root mean squared error (RMSE), mean absolute error (MAE), and R-squared (R^2). We chose these metrics because R^2 indicates the proportion of variance in the selling price that can be explained by the independent features in the model and provides insight as to how well our model fits the data. RMSE measures the square root of the average of the squared differences between predicted and actual values and MAE measures the average of the absolute differences between the predicted and the actual values. We did this as even though we intend to predict the actual selling price, the value we most likely will reach is the mmr, which is not always the same as the selling price, but is very close. These metrics are in the same dollar units as the target variable so it can be easily interpreted. A smaller RMSE and MAE indicates a more accurate model. 
 
 For our Linear Regression model, we got an R^2 of 0.8491, an RMSE of 3735.1426, and an MAE of 2379.8014. This means that approximately 84% of the variability in the selling price can be explained from our independent variables. The high R^2 score indicates the model is effective at predicting car prices based on the provided features. The RMSE (3,735) and MAE (2,380) provide insight into the magnitude of prediction errors, which are reasonably small given the context of selling cars. For our ridge regression model, we got an R^2 of 0.8512, an RMSE of 3709.2976, and an MAE of 2365.5228. This means that approximately 85% of the variability in the selling price can be explained from our independent variables. Once again, the high R^2 score indicates the model is effective at predicting car prices based on the provided features. Since our Ridge Regression model slightly outperforms the Linear Regression model, we can assume some features that were somewhat correlated with each other were penalized by introducing a regularization term in the ridge model. For our Lasso Regression model, we got an R^2 of 0.8284, an RMSE of 3983.6842, and an MAE of 2517.8088. This means that approximately 82% of the variability in the selling price can be explained from our independent variables. Since Lasso Regression shrinks the importance of some features, the slightly lower R^2 score may suggest that all the features we used in our model were important and not redundant.
+
+![lin reg actual vs predicted](https://github.com/user-attachments/assets/824c0e74-7f18-4ead-aa55-2b9d180bc55c)
+Figure 11. Scatterplot showing Actual Selling Price vs Predicted Selling Price
+
+## Conclusion
+
+
 
 
 
